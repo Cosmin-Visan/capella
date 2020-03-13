@@ -66,7 +66,8 @@ public class TitleBlockServices {
   }
 
   public boolean isDiagram(EObject container) {
-    return (container instanceof DataPkgImpl);
+    // return (container instanceof DataPkgImpl);
+    return true;
   }
 
   public boolean isDiagramTitleBlock(DAnnotation titleBlock) {
@@ -79,9 +80,9 @@ public class TitleBlockServices {
   }
 
   public void createElementTitleBlock(EObject elementView, EObject diagram) {
-    if (!(elementView instanceof DSemanticDiagram) && isUniqueElementTitleBlock(elementView, diagram)) {
-      if (elementView instanceof DNodeList) {
-        if (!(((DNodeList) elementView).getTarget() instanceof DAnnotation)) {
+    if (!(elementView instanceof DSemanticDiagram)) {
+      if (elementView instanceof DDiagramElement && isUniqueElementTitleBlock((DDiagramElement) elementView, diagram)) {
+        if (!(((DDiagramElement) elementView).getTarget() instanceof DAnnotation)) {
 
           DRepresentation representation = null;
           if ((diagram instanceof DRepresentation)) {
@@ -283,10 +284,19 @@ public class TitleBlockServices {
     List<DAnnotation> list = new ArrayList<DAnnotation>();
     if ((elementView instanceof DRepresentation)) {
       DRepresentation representation = (DRepresentation) elementView;
-      list = representation.getEAnnotations().stream()
-          .filter(x -> (x.getSource().equals(DIAGRAM_TITLE_BLOCK) || x.getSource().equals(ELEMENT_TITLE_BLOCK)))
+      List<DAnnotation> listElementTB = representation.getEAnnotations().stream()
+          .filter(x -> (x.getSource().equals(ELEMENT_TITLE_BLOCK)))
           .collect(Collectors.toList());
-      deleteDanglingTitleBlock(list, elementView);
+      
+      List<DAnnotation> listDiagTB = representation.getEAnnotations().stream()
+          .filter(x -> (x.getSource().equals(DIAGRAM_TITLE_BLOCK)))
+          .collect(Collectors.toList());
+      
+      deleteDanglingTitleBlock(listElementTB, elementView);
+      
+      list.addAll(listElementTB);
+      list.addAll(listDiagTB);
+      
       list = list.stream().filter(x -> Objects.nonNull(x.getDetails().get(VISIBILITY)))
           .filter(x -> x.getDetails().get(VISIBILITY).equals(TRUE)).collect(Collectors.toList());
     }
@@ -324,12 +334,14 @@ public class TitleBlockServices {
         deleteList.add(annotation);
       }
     }
-    deleteList = deleteList.stream().filter(x -> Objects.nonNull(x.getDetails().get(IS_ELEMENT_TITLE_BLOCK)))
-        .filter(x -> x.getDetails().get(IS_ELEMENT_TITLE_BLOCK).equals(TRUE)).collect(Collectors.toList());
-    CapellaServices.getService().removeElements(deleteList);
+    
+    
+    list.removeAll(deleteList);
     for (DAnnotation annotation : deleteList) {
       clearEAnnotations(elementView, annotation);
     }
+    
+    CapellaServices.getService().removeElements(deleteList);
   }
 
   public void clearEAnnotations(Object elementView, DAnnotation element) {
@@ -598,7 +610,7 @@ public class TitleBlockServices {
           .collect(Collectors.toList());
       for (DAnnotation annotation : result) {
         for (EObject reference : annotation.getReferences()) {
-          if (reference == ((DNodeList) elementView).getTarget()) {
+          if (reference == ((DDiagramElement) elementView).getTarget()) {
             return false;
           }
         }

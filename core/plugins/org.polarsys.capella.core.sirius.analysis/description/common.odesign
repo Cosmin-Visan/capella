@@ -2911,6 +2911,16 @@
           <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_Class']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_PVG']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_BooleanType']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_Collection']"/>
+          <sourceMapping xsi:type="description_1:NodeMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@nodeMappings[name='DT_Contraint']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_DataPkg']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_DataType']"/>
+          <sourceMapping xsi:type="description_1:NodeMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@nodeMappings[name='DT_DataValue']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_Enumeration']"/>
+          <sourceMapping xsi:type="description_1:EdgeMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@edgeMappings[name='DT_Generalization']"/>
+          <sourceMapping xsi:type="description_1:NodeMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@nodeMappings[name='DT_PV']"/>
+          <sourceMapping xsi:type="description_1:NodeMapping" href="#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@nodeMappings[name='DT_Unit']"/>
           <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -4185,7 +4195,7 @@
             </tools>
           </ownedTools>
           <ownedTools xsi:type="tool:ToolGroup" name="ElementTitleBlock">
-            <tools xsi:type="tool_1:ToolDescription" name="element.title.block" label="%common.cdb.element.title.block" precondition="aql:not self.isDiagram()" forceRefresh="true" iconPath="/org.polarsys.capella.core.sirius.analysis/icons/full/obj16/TitleBlock_16.gif">
+            <tools xsi:type="tool_1:ToolDescription" name="element.title.block" label="%common.cdb.element.title.block" forceRefresh="true" iconPath="/org.polarsys.capella.core.sirius.analysis/icons/full/obj16/TitleBlock_16.gif">
               <element name="container"/>
               <elementView name="containerView"/>
               <initialOperation>
