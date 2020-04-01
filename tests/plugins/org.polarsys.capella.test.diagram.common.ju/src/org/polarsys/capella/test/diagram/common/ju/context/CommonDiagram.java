@@ -17,6 +17,7 @@ import org.eclipse.sirius.diagram.DDiagramElementContainer;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.DNodeListElement;
+import org.eclipse.sirius.viewpoint.description.DAnnotation;
 import org.polarsys.capella.core.data.capellacore.CapellaElement;
 import org.polarsys.capella.core.sirius.analysis.constants.IDNDToolNameConstants;
 import org.polarsys.capella.core.sirius.analysis.constants.IToolNameConstants;
@@ -27,6 +28,8 @@ import org.polarsys.capella.test.diagram.common.ju.step.tools.DragAndDropFromPro
 import org.polarsys.capella.test.diagram.common.ju.step.tools.DragAndDropTool;
 import org.polarsys.capella.test.diagram.common.ju.step.tools.InsertRemoveTool;
 import org.polarsys.capella.test.diagram.common.ju.step.tools.SelectTool;
+import org.polarsys.capella.test.diagram.common.ju.step.tools.titleblocks.CreateDiagramTitleBlockTool;
+import org.polarsys.capella.test.diagram.common.ju.step.tools.titleblocks.CreateElementTitleBlockTool;
 import org.polarsys.capella.test.framework.context.SessionContext;
 
 public class CommonDiagram extends DiagramContext {
@@ -46,6 +49,18 @@ public class CommonDiagram extends DiagramContext {
     return getSemanticIdFromView(createdConstraint);
   }
 
+  public DAnnotation createDiagramTitleBlock() {
+    DDiagramElementContainer createdTB = new CreateDiagramTitleBlockTool(this, IToolNameConstants.TOOL_CREATE_DIAGRAM_TITLE_BLOCK,
+        getDiagramId()).run();
+    return (DAnnotation)createdTB.getTarget();
+  }
+  
+  public DAnnotation createElementTitleBlock(String containerId) {
+    DDiagramElementContainer createdTB = new CreateElementTitleBlockTool(this, IToolNameConstants.TOOL_CREATE_ELEMENT_TITLE_BLOCK,
+        containerId).run();
+    return (DAnnotation)createdTB.getTarget();
+  }
+  
   public void createConstrainedElement(String sourceId, String targetId) {
     // All diagrams shared the same tool
     String name = IToolNameConstants.TOOL_CC_CREATE_CONSTRAINTELEMENT;
@@ -107,7 +122,7 @@ public class CommonDiagram extends DiagramContext {
   public void dragAndDropCComponentFromExplorer(String idDraggedElement, String containerId) {
     dragAndDropFromExplorer(idDraggedElement, containerId, IDNDToolNameConstants.TOOL_DND_CONSTRAINT_FROM_EXPLORER);
   }
-
+  
   protected String createNodeElement(String containerId, String toolName) {
 
     DNode graphicalElement = new CreateAbstractDNodeTool<DNode>(this, toolName, containerId).run();
